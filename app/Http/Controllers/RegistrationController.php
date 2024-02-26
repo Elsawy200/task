@@ -83,6 +83,16 @@ class RegistrationController extends Controller
     }
 
     public function preiviewPage(){
+        $check=User::find(\auth()->id());
+        if (!$check->firstName){
+            return redirect()->route('step1');
+        }
+        if (!$check->lastName){
+            return redirect()->route('step2');
+        }
+        if (!$check->phone){
+            return redirect()->route('step3');
+        }
         $user=User::find(\auth()->id());
         return view('index',['user'=>$user]);
     }
